@@ -1,0 +1,8 @@
+<div (click)="toggleLanguage($event.target)" class="language">
+  <span
+    [ngClass]="{ active: language.isActive }"
+    *ngFor="let language of languages"
+  >
+    {{ language.language }}
+  </span>
+</div>
