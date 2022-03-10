@@ -1,3 +1,39 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$weather-app-primary: mat.define-palette(mat.$indigo-palette);
+$weather-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$weather-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$weather-app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $weather-app-primary,
+      accent: $weather-app-accent,
+      warn: $weather-app-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($weather-app-theme);
+
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
 :root {
@@ -5,6 +41,7 @@
   --dark-color: #333333;
   --light-dark-color: #727171;
   --light-color: #efefef;
+  --light-gray: #b0afaf;
   --dark-mode: #0f1f38;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -23,6 +60,14 @@ body {
   background-color: #fff;
   color: #333;
   overflow: hidden;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -64,6 +109,11 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &-logo {
+    margin-left: 10px;
+    font-size: 20px;
+  }
 
   .mode-toggle {
     display: flex;
@@ -154,18 +204,6 @@ img {
   background-color: var(--light-color);
 }
 
-.dark {
-  background-color: var(--dark-mode);
-  color: var(--light-dark-color);
-
-  & a {
-    color: var(--light-color);
-  }
-  .language .active {
-    color: var(--primary-color);
-  }
-}
-
 .language {
   & span {
     cursor: pointer;
@@ -175,4 +213,151 @@ img {
       color: var(--dark-mode);
     }
   }
+}
+
+.search {
+  height: 24px;
+  display: flex;
+  border: none;
+  border-radius: 12px;
+  padding-left: 2px;
+  background-color: var(--light-gray);
+
+  &-input {
+    border: none;
+    outline: none;
+    display: none;
+    min-width: 250px;
+
+    &.active {
+      display: block;
+      width: 40vw;
+    }
+  }
+
+  &-icon {
+    margin-right: 2px;
+    display: flex;
+    direction: initial;
+    cursor: pointer;
+  }
+}
+
+.autocomplete {
+  position: absolute;
+  background-color: var(--light-color);
+  margin-left: 10px;
+  min-width: 250px;
+  width: 40vw;
+  display: none;
+  z-index: 1;
+
+  &-item {
+    display: block;
+    cursor: pointer;
+    border-bottom: 1px solid #cccccc;
+
+    &:hover {
+      background-color: var(--light-gray);
+      border: 1px solid var(--light-dark-color);
+    }
+  }
+
+  &.active {
+    display: block;
+  }
+}
+
+.landing {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+  }
+
+  &-item {
+    min-width: 500px;
+    height: auto;
+    min-height: 60vh;
+    background-color: var(--light-color);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 4px 0 #343232;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--light-gray);
+      box-shadow: 0 0 8px 2px #343232;
+      transform: scale(1.002);
+      transition: transform 0.1s, box-shadow 0.1s ease-in;
+    }
+
+    &-location {
+      height: 100px;
+      font-size: 80px;
+      margin: 0 10px;
+    }
+
+    &-time {
+      height: 50px;
+      font-size: 35px;
+    }
+
+    &-img {
+      font-size: 40px;
+      height: 120px;
+      width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & img {
+        height: 100px;
+        width: 100px;
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: var(--dark-mode);
+  color: var(--light-dark-color);
+
+  .landing-item {
+    background-color: var(--dark-mode);
+  }
+
+  & a {
+    color: var(--light-color);
+  }
+  .language .active {
+    color: var(--primary-color);
+  }
+
+  & .search {
+    background-color: var(--light-color);
+  }
+
+  .autocomplete {
+    background-color: var(--dark-mode);
+
+    &-item {
+      border-bottom: 1px solid var(--light-dark-color);
+    }
+  }
+}
+
+.weather-loader {
+  height: 300px;
+  width: 300px;
+}
+
+.invalid {
+  box-sizing: content-box;
+  border: solid 1px red;
 }

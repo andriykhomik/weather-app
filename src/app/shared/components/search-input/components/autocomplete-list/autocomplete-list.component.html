@@ -1,0 +1,14 @@
+<ng-container *ngIf="autocompleteList$ | async as autocompleteList"
+  ><div [ngClass]="{ autocomplete: true, active: true }">
+    <ul>
+      <li
+        *ngFor="let autocompleteItem of autocompleteList"
+        (click)="chooseLocation(autocompleteItem)"
+      >
+        <app-autocomplete-item
+          [autocompleteItem]="autocompleteItem"
+        ></app-autocomplete-item>
+      </li>
+    </ul>
+  </div>
+</ng-container>

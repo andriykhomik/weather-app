@@ -1,1 +1,19 @@
-<p>search-input works!</p>
+<span
+  class="search search-container"
+  [ngClass]="{
+    invalid: searchInput.invalid && searchInput.touched
+  }"
+  ><input
+    class="search search-input active"
+    type="text"
+    [formControl]="searchInput"
+    (input)="searchItems()"
+    (keydown)="submitSearch($event)"
+    [ngModel]="autocompleteItemValue$ | async"
+    [placeholder]="'City name'"
+  />
+  <mat-icon class="search search-icon" (click)="submitSearch()"
+    >search</mat-icon
+  >
+</span>
+<app-autocomplete-list></app-autocomplete-list>

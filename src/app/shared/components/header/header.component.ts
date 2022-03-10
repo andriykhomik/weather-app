@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavigationService } from '../../services/navigation.service';
 
@@ -7,10 +7,8 @@ import { NavigationService } from '../../services/navigation.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public darkMode$: Observable<string> = this.navigateService.mode$;
 
   constructor(private navigateService: NavigationService) {}
-
-  ngOnInit(): void {}
 }
