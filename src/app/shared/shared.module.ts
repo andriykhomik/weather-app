@@ -14,6 +14,7 @@ import { TransformToISOPipe } from './pipes/transform-to-iso.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AutocompleteListComponent } from './components/search-input/components/autocomplete-list/autocomplete-list.component';
 import { AutocompleteItemComponent } from './components/search-input/components/autocomplete-item/autocomplete-item.component';
+import { FavoriteCityItemComponent } from './components/favorite-city/favorite-city-item/favorite-city-item.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AutocompleteItemComponent } from './components/search-input/components/
     TransformToISOPipe,
     AutocompleteListComponent,
     AutocompleteItemComponent,
+    FavoriteCityItemComponent,
   ],
   imports: [
     CommonModule,

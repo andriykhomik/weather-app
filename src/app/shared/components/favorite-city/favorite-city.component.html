@@ -1,1 +1,25 @@
-<span class="favorite-city">favorite city</span>
+<span class="favorite">
+  <div
+    class="favorite-icon"
+    [ngClass]="{ active: isShow }"
+    (click)="isShow = !isShow"
+  >
+    <mat-icon>star</mat-icon>
+  </div>
+  <div class="favorite-list" [ngClass]="{ active: isShow }">
+    <ul *ngIf="favoriteList$ | async as favoriteList">
+      <ng-container *ngIf="isShow && favoriteList.length; else message">
+        <app-favorite-city-item
+          *ngFor="let favorite of favoriteList"
+          (click)="favoriteListOperator($event.target, favorite)"
+          [favorite]="favorite"
+        ></app-favorite-city-item>
+      </ng-container>
+    </ul>
+    <ng-template #message
+      ><div class="favorite-list-empty">
+        Your favorite list is empty
+      </div></ng-template
+    >
+  </div>
+</span>

@@ -61,10 +61,25 @@ export interface WeatherData {
   windDirection?: string;
   speedWind?: number;
   status?: number;
+  precip_mm?: number;
+  humidity?: number;
+  pressure?: number;
+  dayForecast?: object[];
+  averageWeatherData?: object;
 }
 
 export interface AutocompleteRes {
   name: string;
   country: string;
   url: string;
+}
+
+export interface Favorite {
+  city: string;
+  country: string;
+}
+
+export interface DayForecast {
+  current: WeatherData;
+  forecast: WeatherData[];
 }

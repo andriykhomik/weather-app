@@ -115,6 +115,64 @@ img {
     font-size: 20px;
   }
 
+  .favorite {
+    position: relative;
+    cursor: pointer;
+
+    &-icon {
+      height: 24px;
+      width: 24px;
+
+      &.active {
+        color: var(--primary-color);
+      }
+    }
+
+    &-list {
+      display: none;
+      position: absolute;
+      top: 28px;
+      right: -12px;
+      min-width: 150px;
+      background-color: var(--light-gray);
+      z-index: 1;
+
+      &-empty {
+        border: solid 1px var(--danger-color);
+        background-color: var(--light-color);
+        padding: 5px;
+      }
+
+      &.active {
+        display: block;
+      }
+
+      &-item {
+        padding: 5px;
+        border-bottom: 1px solid var(--light-dark-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-close {
+          position: center;
+          color: var(--light-gray);
+          height: 24px;
+          width: 24px;
+
+          &:hover {
+            color: var(--danger-color);
+          }
+        }
+
+        &:hover {
+          background-color: var(--light-color);
+          color: var(--light-dark-color);
+        }
+      }
+    }
+  }
+
   .mode-toggle {
     display: flex;
   }
@@ -137,7 +195,7 @@ img {
   .slider {
     position: absolute;
     cursor: pointer;
-    top: 7px;
+    top: 4px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -190,20 +248,6 @@ img {
   }
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  font-size: 34px;
-  width: 100vw;
-  height: 60px;
-  background-color: var(--light-color);
-}
-
 .language {
   & span {
     cursor: pointer;
@@ -241,6 +285,11 @@ img {
     direction: initial;
     cursor: pointer;
   }
+
+  .invalid {
+    box-sizing: content-box;
+    border: solid 1px red;
+  }
 }
 
 .autocomplete {
@@ -253,19 +302,34 @@ img {
   z-index: 1;
 
   &-item {
+    padding-left: 5px;
     display: block;
     cursor: pointer;
     border-bottom: 1px solid #cccccc;
 
     &:hover {
       background-color: var(--light-gray);
-      border: 1px solid var(--light-dark-color);
+      color: var(--light-dark-color);
     }
   }
 
   &.active {
     display: block;
   }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 34px;
+  width: 100vw;
+  height: 60px;
+  background-color: var(--light-color);
 }
 
 .landing {
@@ -324,6 +388,27 @@ img {
   }
 }
 
+.details {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    min-width: 800px;
+    height: auto;
+    min-height: 60vh;
+    background-color: var(--light-color);
+    border-radius: 40px;
+    flex-direction: column;
+    box-shadow: 0 0 4px 0 #343232;
+  }
+}
+
 .dark {
   background-color: var(--dark-mode);
   color: var(--light-dark-color);
@@ -350,14 +435,24 @@ img {
       border-bottom: 1px solid var(--light-dark-color);
     }
   }
+
+  .favorite {
+    &-list {
+      background-color: var(--dark-mode);
+      &-item {
+        &:hover {
+          background-color: var(--light-gray);
+        }
+
+        &-close {
+          color: var(--dark-mode);
+        }
+      }
+    }
+  }
 }
 
 .weather-loader {
   height: 300px;
   width: 300px;
-}
-
-.invalid {
-  box-sizing: content-box;
-  border: solid 1px red;
 }

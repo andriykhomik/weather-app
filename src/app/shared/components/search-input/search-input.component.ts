@@ -27,7 +27,10 @@ export class SearchInputComponent {
   }
 
   public submitSearch(event?: KeyboardEvent): void {
-    if (event && event.key !== 'Enter') {
+    if (event?.key === 'Escape') {
+      this.searchService.inputValue$.next('');
+      return;
+    } else if (event?.key !== 'Enter') {
       return;
     }
     this.weatherService.getWeather(this.searchInput.value);

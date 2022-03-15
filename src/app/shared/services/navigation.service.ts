@@ -25,7 +25,7 @@ export class NavigationService {
           ? 'day'
           : 'evening'
       );
-    }, 10000);
+    }, 5000);
     return this.timeOfDay$;
   }
 
