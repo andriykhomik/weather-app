@@ -1,1 +1,9 @@
-<app-landing-item></app-landing-item>
+<div class="landing landing-container">
+  <app-landing-item
+    *ngIf="currentWeather$ | async as currentWeather; else loader"
+    [weather]="currentWeather"
+  ></app-landing-item>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

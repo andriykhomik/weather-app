@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, interval, map, Observable } from 'rxjs';
 import { Language } from '../interfaces/interfaces';
 
 @Injectable({
@@ -12,21 +12,26 @@ export class NavigationService {
   public timeOfDay$: BehaviorSubject<string> = new BehaviorSubject<string>(
     'evening'
   );
+  public interval = setInterval(() => {
+    this.setBGImageName();
+  }, 1000);
 
   public timeOfDay(): Observable<string> {
-    setInterval(() => {
-      let timeInt = new Date().getHours();
-      this.timeOfDay$.next(
-        timeInt >= 0 && timeInt < 6
-          ? 'night'
-          : timeInt >= 6 && timeInt < 12
-          ? 'morning'
-          : timeInt >= 12 && timeInt < 18
-          ? 'day'
-          : 'evening'
-      );
-    }, 5000);
+    this.setBGImageName();
     return this.timeOfDay$;
+  }
+
+  private setBGImageName(): void {
+    const timeInt = new Date().getHours();
+    this.timeOfDay$.next(
+      timeInt >= 0 && timeInt < 6
+        ? 'night'
+        : timeInt >= 6 && timeInt < 12
+        ? 'morning'
+        : timeInt >= 12 && timeInt < 18
+        ? 'day'
+        : 'evening'
+    );
   }
 
   public changeMode(): string {

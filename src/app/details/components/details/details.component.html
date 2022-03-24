@@ -1,3 +1,12 @@
 <div class="details">
-  <div class="details-item"></div>
+  <div
+    class="details-container"
+    *ngIf="dayForecast$ | async as dayForecast; else loader"
+  >
+    <app-details-header [dayForecast]="dayForecast"></app-details-header>
+    <app-details-list-data [dayForecast]="dayForecast"></app-details-list-data>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
 </div>

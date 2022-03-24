@@ -1,24 +1,17 @@
 <div class="landing landing-container">
-  <ng-container *ngIf="currentWeather$ | async as weather; else loader">
-    <div
-      class="landing-item {{ darkMode | async }}"
-      [routerLink]="['details', weather.city]"
-    >
-      <div class="landing-item-location">
-        {{ weather.city }}{{ (weather.country | transformToISO) || "" }}
-      </div>
-      <div class="landing-item-time">
-        {{ weather.time | date: "EEEE, HH:mm" }}
-      </div>
-      <div class="landing-item-img">
-        <span>{{ weather.temperatureC | number: "1.0-0" }} &#186;C</span
-        ><img [src]="weather.icon" [alt]="weather.alt" />
-      </div>
+  <div class="landing-item {{ darkMode | async }}">
+    <div class="landing-item-location">
+      <p>{{ weather.city }}{{ (weather.country | transformToISO) || "" }}</p>
     </div>
-  </ng-container>
-  <ng-template #loader>
-    <img
-      class="weather-loader"
-      src="https://bmcdn.nl/assets/weather-icons/v2.1/fill/clear-day.svg"
-  /></ng-template>
+    <div class="landing-item-time">
+      {{ time() | date: "EEEE, HH:mm:ss" }}
+    </div>
+    <div class="landing-item-img">
+      <span>{{ weather.temperatureC | number: "1.0-0" }} &#186;C</span
+      ><img [src]="weather.icon" [alt]="weather.alt" />
+    </div>
+    <app-landing-navigation
+      [location]="weather.city + '%' + weather.country"
+    ></app-landing-navigation>
+  </div>
 </div>

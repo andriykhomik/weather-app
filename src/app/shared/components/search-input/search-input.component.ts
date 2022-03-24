@@ -11,7 +11,7 @@ import { WeatherService } from '../../services/weather.service';
 })
 export class SearchInputComponent {
   public autocompleteItemValue$: Observable<string> =
-    this.weatherService.currentSearchValue$;
+    this.searchService.currentSearchValue$;
   public searchInput: FormControl = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
@@ -30,9 +30,9 @@ export class SearchInputComponent {
     if (event?.key === 'Escape') {
       this.searchService.inputValue$.next('');
       return;
-    } else if (event?.key !== 'Enter') {
+    } else if (event && event.key !== 'Enter') {
       return;
     }
-    this.weatherService.getWeather(this.searchInput.value);
+    this.searchService.currentSearchValue$.next(this.searchInput.value);
   }
 }

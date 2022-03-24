@@ -15,6 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AutocompleteListComponent } from './components/search-input/components/autocomplete-list/autocomplete-list.component';
 import { AutocompleteItemComponent } from './components/search-input/components/autocomplete-item/autocomplete-item.component';
 import { FavoriteCityItemComponent } from './components/favorite-city/favorite-city-item/favorite-city-item.component';
+import { NgForLoopDirective } from './directives/ng-for-loop.directive';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { FavoriteCityItemComponent } from './components/favorite-city/favorite-c
     AutocompleteListComponent,
     AutocompleteItemComponent,
     FavoriteCityItemComponent,
+    NgForLoopDirective,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +41,12 @@ import { FavoriteCityItemComponent } from './components/favorite-city/favorite-c
     HttpClientModule,
     FontAwesomeModule,
   ],
-  exports: [HeaderComponent, FooterComponent, TransformToISOPipe],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    TransformToISOPipe,
+    NgForLoopDirective,
+    LoaderComponent,
+  ],
 })
 export class SharedModule {}

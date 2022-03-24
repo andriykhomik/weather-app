@@ -1,0 +1,1 @@
+import { Injectable } from '@angular/core';import { SearchService } from './search.service';@Injectable({  providedIn: 'root',})export class LocalStorageService {  constructor(private searchService: SearchService) {}  public setLocationToLS() {    localStorage.setItem(      'location',      this.searchService.currentSearchValue$.getValue()    );  }}

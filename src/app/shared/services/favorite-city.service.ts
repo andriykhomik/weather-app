@@ -8,53 +8,64 @@ import { Favorite } from '../interfaces/interfaces';
 export class FavoriteCityService {
   public favoriteCitiesList$: BehaviorSubject<Favorite[]> = new BehaviorSubject<
     Favorite[]
-  >(JSON.parse(localStorage.getItem('favoriteLocations') || ''));
+  >(
+    localStorage.getItem('favoriteLocations')
+      ? JSON.parse(localStorage.getItem('favoriteLocations') || '')
+      : []
+  );
+  private currentLocationItem!: Favorite;
 
-  public changeFavoriteList(location?: Favorite) {
-    let currentLocation = localStorage.getItem('location');
-    if (currentLocation) {
-      let currentLocationArr = currentLocation
-        .split(',')
-        .map((item) => item.trim());
-      this.favoriteCitiesList$.getValue().forEach((locationItem: Favorite) => {
-        if (
-          location &&
-          location.city === locationItem.city &&
-          location.country === locationItem.country
-        ) {
-          this.favoriteCitiesList$.next(this.removeFromFavoriteList(location));
-        }
-        if (
-          locationItem.city !== currentLocationArr[0] &&
-          locationItem.country !== currentLocationArr[1]
-        ) {
-          this.favoriteCitiesList$.next(
-            this.addToFavoriteList(currentLocationArr)
+  public changeFavoriteList(location: Favorite) {
+    let currentFavoriteList: Favorite[] = this.favoriteCitiesList$.getValue();
+    this.doCurrentLocationItem();
+
+    if (
+      !this.favoriteCitiesList$.getValue().length ||
+      !this.doCheckIsFavorite(location)
+    ) {
+      currentFavoriteList.push(location);
+    } else {
+      currentFavoriteList = currentFavoriteList.filter(
+        (favLocation: Favorite) => {
+          return (
+            favLocation.city !== location.city ||
+            favLocation.country !== location.country
           );
         }
-      });
+      );
     }
+
+    this.favoriteCitiesList$.next(currentFavoriteList);
     localStorage.setItem(
       'favoriteLocations',
       JSON.stringify(this.favoriteCitiesList$.getValue())
     );
   }
 
-  public addToFavoriteList(currentLocationArr: string[]): Favorite[] {
-    return [
-      ...this.favoriteCitiesList$.getValue(),
-      { city: currentLocationArr[0], country: currentLocationArr[1] },
-    ];
+  private doCurrentLocationItem(): void {
+    let currentLocation = localStorage.getItem('location');
+    if (currentLocation) {
+      this.currentLocationItem =
+        this.strLocationToFavoriteObjLocation(currentLocation);
+    }
   }
 
-  public removeFromFavoriteList(location: Favorite): Favorite[] {
-    return [...this.favoriteCitiesList$.getValue()].filter(
-      (locationItem: Favorite) => {
-        return !(
-          locationItem.city === location.city &&
-          locationItem.country === location.country
-        );
-      }
-    );
+  public strLocationToFavoriteObjLocation(strLocation: string): Favorite {
+    let currentLocationDataArr = strLocation
+      .split(',')
+      .map((item) => item.trim());
+    return {
+      city: currentLocationDataArr[0],
+      country: currentLocationDataArr[1],
+    };
+  }
+
+  public doCheckIsFavorite(favoriteLocation: Favorite): boolean {
+    return this.favoriteCitiesList$.getValue().some((location: Favorite) => {
+      return (
+        location.city === favoriteLocation.city &&
+        location.country === favoriteLocation.country
+      );
+    });
   }
 }

@@ -2,9 +2,9 @@
 
 <app-header></app-header>
 
-<ng-container *ngIf="time$ | async as time">
+<ng-container class="ng" *ngIf="timeBG$ | async as time">
   <div
-    class="root"
+    class="root {{ darkMode$ | async }}"
     [style.backgroundImage]="
       'url(' +
       '../assets/images/background-images/' +

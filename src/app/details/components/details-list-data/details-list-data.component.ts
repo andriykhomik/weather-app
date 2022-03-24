@@ -1,0 +1,1 @@
+import { Component, Input } from '@angular/core';import { WeatherData } from '../../../shared/interfaces/interfaces';@Component({  selector: 'app-details-list-data',  templateUrl: './details-list-data.component.html',  styleUrls: ['./details-list-data.component.scss'],})export class DetailsListDataComponent {  @Input() public dayForecast!: WeatherData;}

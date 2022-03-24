@@ -9,14 +9,19 @@ const routes: Routes = [
       import('./landing/landing.module').then((m) => m.LandingModule),
   },
   {
-    path: 'details/:city',
+    path: 'details/:location',
     loadChildren: () =>
       import('./details/details.module').then((m) => m.DetailsModule),
   },
   {
-    path: 'forecast/:city',
+    path: 'forecast/:location',
     loadChildren: () =>
       import('./forecast/forecast.module').then((m) => m.ForecastModule),
+  },
+  {
+    path: 'history/:location',
+    loadChildren: () =>
+      import('./history/history.module').then((m) => m.HistoryModule),
   },
 ];
 

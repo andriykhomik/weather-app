@@ -55,7 +55,6 @@ export interface WeatherData {
   country: string;
   cloud?: number;
   icon?: string;
-  time: Date;
   alt?: string;
   temperatureC?: number;
   windDirection?: string;
@@ -64,8 +63,37 @@ export interface WeatherData {
   precip_mm?: number;
   humidity?: number;
   pressure?: number;
-  dayForecast?: object[];
-  averageWeatherData?: object;
+  dayForecast?: DayForecast;
+  forecast?: Forecast;
+  astro?: Astro;
+}
+
+export interface Astro {
+  sunrise: any;
+  sunset: any;
+  moonrise: any;
+  moonset: any;
+}
+
+export interface DayForecast {
+  time_epoch: number;
+  chance_of_rain: number;
+  chance_of_snow: number;
+  cloud: number;
+  condition: Condition;
+  temp_c: number;
+  feelslike_c: number;
+  humidity: number;
+  precip_mm: number;
+  pressure_mb: number;
+  time: Date;
+  wind_dir: string;
+  wind_kph: number;
+}
+
+interface Condition {
+  text: string;
+  icon: string;
 }
 
 export interface AutocompleteRes {
@@ -79,7 +107,33 @@ export interface Favorite {
   country: string;
 }
 
-export interface DayForecast {
-  current: WeatherData;
-  forecast: WeatherData[];
+export interface Forecast {
+  location: WeatherInfo;
+  current: DayForecast;
+  forecast: DayForecastData[];
+}
+
+export interface Weather {
+  city: string;
+  country: string;
+  icon: string;
+  alt: string;
+  temperatureC: number;
+  status: number;
+}
+
+export interface AvgWeatherData {
+  avghumidity: number;
+  avgtemp_c: number;
+  condition: Condition;
+  daily_will_it_rai: any;
+  daily_will_it_sno: number;
+  maxwind_kph: number;
+  totalprecip_mm: number;
+}
+
+export interface DayForecastData {
+  day: AvgWeatherData;
+  hour: DayForecast;
+  date: string;
 }

@@ -1,1 +1,14 @@
-<p>forecast works!</p>
+<div class="details forecast">
+  <div
+    class="details-container forecast-container"
+    *ngIf="weekForecast$ | async as weekForecast; else loader"
+  >
+    <app-forecast-header
+      [forecast]="weekForecast.location"
+    ></app-forecast-header>
+    <app-forecast-data [forecast]="weekForecast"></app-forecast-data>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</div>

@@ -7,12 +7,9 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  public time$!: Observable<string>;
+export class AppComponent {
+  public timeBG$: Observable<string> = this.navigationService.timeOfDay();
+  public darkMode$: Observable<string> = this.navigationService.mode$;
 
   constructor(private navigationService: NavigationService) {}
-
-  ngOnInit(): void {
-    this.time$ = this.navigationService.timeOfDay();
-  }
 }

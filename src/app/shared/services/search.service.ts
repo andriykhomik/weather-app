@@ -10,6 +10,10 @@ export class SearchService {
   public inputValue$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public autocompleteList$: Observable<AutocompleteRes[]> =
     this.getClientInputAutocompleteList();
+  public currentSearchValue$: BehaviorSubject<string> =
+    new BehaviorSubject<string>(
+      localStorage.getItem('location') || 'Lviv, Ukraine'
+    );
 
   constructor(
     @Inject('BASE_URL') private baseUrl: string,
